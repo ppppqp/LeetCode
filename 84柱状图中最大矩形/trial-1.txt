@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        
+        int l=0,r=heights.size()-1;// two pointers indicating the scope of search
+    
+        return find(l,r,heights);
+    }
+//A recusion helper fuction
+//EFFECT: find the max rectangle area that includes all the rectangles from i to j.
+//Then find the max rectangle area with i and j modified according to the position of minn.
+//Return: the max area of all.
+    int find(int i, int j, vector<int>heights)
+    {   if(i>j) return 0;
+        if(i==j) return heights[j];
+        int k;
+        int minn=heights[i];
+        int minn_num=i;
+        for(k=i;k<=j;k++)
+        {
+            if(minn>heights[k])
+            {
+                minn=heights[k];
+                minn_num=k;
+            }
+        }
+        int ans=max(max(find(i,minn_num-1, heights), find(minn_num+1,j, heights)), (j-i+1)*minn);//narrow down the search region to the left and right half divided by the minn
+     
+     return ans;
+    }
+};
