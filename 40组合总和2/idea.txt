@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+    
+        vector<vector<vector<int>>> ans(target+1);
+        int i,j,k;
+        ans[0]={{ }};
+        for(i=0;i<candidates.size();i++)
+        {
+            for(j=target;j>=candidates[i];j--)
+            {
+                for(k=0;k<ans[j-candidates[i]].size();k++)
+                {
+                vector<int>temp;
+                temp=ans[j-candidates[i]][k];
+                temp.push_back(candidates[i]);
+                ans[j].push_back(temp);
+                    
+                }
+            }
+        }
+        return ans[target];
+    
+    }
+};

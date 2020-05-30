@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int reverse(int x) {
+        
+        long long num[100]={0};
+        int i=0;
+        int neg=0;
+        if(x<0) neg=1;
+        while(x!=0)
+        {
+            num[i]=abs(x%10);
+            x=x/10;
+            i++;
+        }
+        int size=i;
+        for(i=0;i<size;i++)
+        {
+            cout<<num[i];
+        }
+        int k=1;
+        long long ans=0;
+        cout<<"size="<<size<<endl;
+        for(i=size-1;i>=0;i--)
+        {
+            ans+=num[i]*k;
+            cout<<"ans="<<ans<<endl;
+            k=k*10;
+        }
+        if(ans>pow(2,31)-1) return 0;
+        if(neg==1) ans=-ans;
+        cout<<endl;
+        return (int)ans;
+    }
+};

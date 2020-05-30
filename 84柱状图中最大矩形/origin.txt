@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        
+        int l=0,r=heights.size()-1;
+    
+        return find(l,r,heights);
+    }
+    int find(int i, int j, vector<int>heights)
+    {   if(i>j) return 0;
+        if(i==j) return heights[j];
+        int k;
+        int minn=heights[i];
+        int minn_num=i;
+        for(k=i;k<=j;k++)
+        {
+            if(minn>heights[k])
+            {
+                minn=heights[k];
+                minn_num=k;
+            }
+        }
+        int ans=max(max(find(i,minn_num-1, heights), find(minn_num+1,j, heights)), (j-i+1)*minn);
+     //cout<<"i="<<i<<" j="<<j<<"minn="<<minn<<"ans="<<ans<<endl;
+     return ans;
+    }
+};

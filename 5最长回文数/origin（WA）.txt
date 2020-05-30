@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int i,maxn=0;
+        int arr[2005]={0};
+        string temp=s;
+        if(s.size()==0) return s;
+        for(i=0;i<s.size();i+=2)
+        {
+            s.insert(i,1,'$');
+        }
+        cout<<s<<endl;
+        for(i=0;i<s.size();i++)
+        {
+            int j=i+1,k=i-1;
+            while(j<s.size()&&j>=0&&k<s.size()&&k>=0&&s[j]==s[k])
+            {
+                arr[i]++;
+                j++;
+                k--;
+            }
+            maxn=max(arr[i],maxn);
+        }
+        cout<<maxn<<endl;
+        for(i=0;i<s.size();i++)
+        {
+            if(arr[i]==maxn)
+            {   string ans;
+               for(int j=i-arr[i];j<=i+arr[i];j++)
+               {
+                   if(s[j]!='$') ans+=s[j];
+               }
+               cout<<"i="<<i<<endl;
+                return ans;
+            }
+        }
+        
+    }
+};

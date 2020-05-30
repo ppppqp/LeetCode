@@ -1,0 +1,40 @@
+class Solution {
+
+//RA
+public:
+    string convert(string s, int numRows) {
+        
+        int i,j;
+        char output[][10000];
+        if(numRows==1) return s;
+        for(i=0;i<500;i++)
+        {
+            for(j=0;j<500;j++)
+            {
+                output[i][j]=' ';
+            }
+        }
+        int mod=numRows*2-2;
+        for(i=0;i<s.size();i++)
+        {
+            int mod=numRows*2-2;
+            int row=i%mod;
+            int col=i/mod;
+            if(row<numRows) output[2*row][col*(mod-numRows+1)*2+2]=s[i];
+            if(row>=numRows) output[(mod-row)*2][col*(mod-numRows+1)*2+2+(row-numRows+1)*2]=s[i];
+            
+        }
+        string ans;
+        for(i=0;i<=mod*2;i++)
+        {
+            for(j=0;j<10000;j++)
+            {
+                if(output[i][j]!=' ')
+                {
+                    ans+=output[i][j];
+                }
+            }
+        }
+        return ans;
+    }
+};

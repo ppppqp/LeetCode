@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        if(height.size()==0) return 0;
+        vector<int> left(height.size()+1);
+        vector<int>right(height.size()+1);
+        int i,ans=0;
+        left[0]=height[0];
+        right[height.size()-1]=height[height.size()-1];
+        for(i=0;i<height.size()-1;i++)
+        {
+            left[i+1]=max(left[i],height[i+1]);
+        }
+        for(i=height.size()-1;i>0;i--)
+        {
+            right[i-1]=max(right[i],height[i-1]);
+        }
+        for(i=0;i<height.size();i++)
+        {
+            if(height[i]<max(right[i],left[i]))
+            {
+            ans+=min(right[i],left[i])-height[i];
+            cout<<ans;
+            }
+        }
+        return ans;
+        
+    }
+};

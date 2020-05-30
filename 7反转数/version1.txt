@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int reverse(int x) {
+        
+        int rec=0,pop;
+        while(x!=0)
+        {
+            pop=x%10;
+            x/=10;
+            if(rec>INT_MAX/10||rec==INT_MAX/10&&pop>7) return 0;
+            if(rec<INT_MIN/10||rec==INT_MAX/10&&pop<-8)return 0;
+            rec=rec*10+pop;
+        }
+        return rec;
+        
+    }
+};

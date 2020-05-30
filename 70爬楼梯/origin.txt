@@ -1,0 +1,33 @@
+
+class Solution {
+public:
+    long long int method[100]={0};
+    int climbStairs(int n) {
+        
+        long long int a1=0,a2=0;
+        if(n==1) return 1;
+        if(n==2) return 2;
+       if(method[n-1]!=0) 
+           a1=method[n-1];
+        else
+        {
+            a1=climbStairs(n-1);
+               method[n-1]=a1;
+        }
+            
+        if(method[n-2]!=0) 
+            a2=method[n-2];
+        else
+        {
+            a2=climbStairs(n-2);
+            method[n-2]=a2;
+        }
+            
+        
+        return a1+a2;
+        
+    }
+  
+};
+
+¼ÇÒä»¯ËÑË÷

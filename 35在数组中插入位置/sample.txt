@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {      
+        if(nums[0] >= target)
+            return 0;
+        if(nums[nums.size()-1] == target )
+            return nums.size()-1;
+        if(target > nums[nums.size() - 1])
+            return nums.size();
+        
+        int l= 0 ; 
+        int r = nums.size()-1;
+        int mid = (nums.size()-1) /2 ;
+        while(1){
+            
+            if(nums[mid] == target)
+                return mid;
+            if(nums[mid] < target && nums[mid+1] >= target)
+                return mid +1;
+            
+            if(nums[mid]>target){
+                r = mid;
+                mid = r/2;
+            }
+            else{
+                l = mid; 
+                mid = (l + r)/2;
+                    
+            }
+            
+            
+        }
+        
+        
+    }
+};

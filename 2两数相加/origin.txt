@@ -1,0 +1,64 @@
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+       
+        int num1=0,num2=0;
+        ListNode * p;
+        p=l1->next;
+        while(p!=NULL)
+        {
+            p=p->next;
+            num1++;
+        }
+        p=l2->next;
+        while(p!=NULL)
+        {
+            p=p->next;
+            num2++;
+        }
+        if(num1<num2)
+        {
+            ListNode* temp ;
+            temp=l1;
+            l1=l2;
+            l2=temp;
+        }
+            ListNode*p1=l1;
+            ListNode* p2=l2;
+            
+            while(p2->next!=NULL)
+            {   int num=p1->val+p2->val;
+                //cout<<"num="<<num<<endl;
+                p1->val=num%10;
+                p1->next->val+=num/10;
+                p1=p1->next;
+                p2=p2->next;
+            }
+            int num=p1->val+p2->val;
+            p1->val=num;
+            //cout<<"num="<<num;
+        int n;
+            while(p1->next!=NULL)
+            {   num=p1->val;
+                //cout<<"num-"<<num<<endl;
+                p1->val=num%10;
+                p1->next->val+=num/10;
+                p1=p1->next;
+            }
+                if(p1->val>=10&&p1->next==NULL)
+                {//cout<<endl<<"yes";
+                    
+                    ListNode * px=new ListNode(0);
+                    p1->val%=10;
+                    px->val=1;
+                    p1->next=px;
+                    px->next=NULL;
+                }
+               
+            return l1;
+        }
+   
+        
+            
+    
+};

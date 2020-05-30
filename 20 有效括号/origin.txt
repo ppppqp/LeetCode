@@ -1,0 +1,45 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        
+        stack<char> bracket;
+        int i;
+        if(s.size()==1) return false;
+        for(i=0;i<s.size();i++)
+        {
+            if(s[i]==')')
+            {
+                
+                if(bracket.size()!=0&&bracket.top()=='(')    
+                {
+                    
+                    bracket.pop();
+                    continue;
+                }
+                else return false;
+            }
+             if(s[i]==']')
+            {
+                if(bracket.size()!=0&&bracket.top()=='[') {
+                    
+                    bracket.pop();
+                    continue;
+                }
+                else return false;
+            }
+             if(s[i]=='}')
+            {
+                if(bracket.size()!=0&&bracket.top()=='{')                           {
+                    
+                    bracket.pop();
+                    continue;
+                }
+                else return false;
+            }
+            bracket.push(s[i]);
+        }
+        if(bracket.size()==0) return true;
+        else return false;
+        
+    }
+};

@@ -1,0 +1,3 @@
+dont forget to initialize
+dont use push_back
+do look up the hash board

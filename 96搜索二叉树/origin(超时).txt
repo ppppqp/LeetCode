@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numTrees(int n) {
+        int ans=0;
+        return build(1,n);
+        
+    }
+    int build(int left, int right)
+    {
+        if(left>=right) return 1;
+        
+        int ans=0;
+        for(int j=left;j<=right;j++)
+        {
+           // cout<<"j="<<j<<endl;
+            int temp=build(left,j-1)*build(j+1,right);
+            ans+=temp;
+        }
+        return ans;
+    }
+};

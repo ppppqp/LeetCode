@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        
+        int i;
+        int ans=0;
+        int last=0;
+        int sum=0;
+        map<char,int>hash;
+        for(i=0;i<s.size();i++)
+        {
+                if(hash.find(s[i])!=hash.end())
+                {   //cout<<"sum="<<sum<<endl;
+                    ans=max(sum,ans);
+                    int pre=hash.find(s[i])->second;
+                    hash.clear();
+                 //   cout<<"pre="<<pre<<endl;
+                    for(int j=pre+1;j<=i;j++)
+                    {
+                        hash[s[j]]=j;
+                    }
+                    sum=i-pre;
+                }
+            else
+            {
+                hash[s[i]]=i;
+                //cout<<"hash"<<s[i]<<"="<<i<<endl;
+                sum++;
+            }
+            
+           // cout<<"sum="<<sum<<endl;
+        }
+        ans=max(sum,ans);
+        return ans;
+    }
+};

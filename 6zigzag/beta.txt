@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        
+        int i,j;
+        string ans;
+        int mod=numRows*2-2;
+        if( numRows==1) return s;
+        for(i=0;i<s.size();i+=mod)
+        {
+            ans+=s[i];
+        }
+            for(j=1;j<numRows;j++)
+            {
+                int k;
+                for(k=0;k<s.size();k++)
+                {
+                    if(k%mod==j||k%mod==mod-j)
+                        ans+=s[k];
+                }
+            }
+        cout<<ans<<endl;
+        for(i=numRows;i<s.size();i+=mod)
+        {
+           // ans+=s[i];
+        }
+       
+        return ans;
+    }
+};

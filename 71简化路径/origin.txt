@@ -1,0 +1,70 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        
+
+        for (int i=1;i<path.size();i++)
+        {
+            if(path[i]=='/'&&path[i-1]=='/')  
+                {
+                    path.erase(path.begin()+i);//去除多余的斜杠
+                    i--;
+                }
+        }
+        cout<<path;
+        if(path.back()!='/') path.push_back('/');
+        stack<string> s;
+        int start_slash=0;//找两两斜杠之间的字符
+        int end_slash=0;
+        //cout<<"size="<<path.size();
+        for (int i=1;i<path.size();i++)
+        {//cout<<"i="<<i;
+            if(path[i]=='/')
+            {   int flag=0;//判断是否要压入栈
+                end_slash=i;
+                string file=path.substr(start_slash+1,end_slash-start_slash-1);//找两两斜杠之间的字符
+                //cout<<"start="<<start_slash<<"end="<<end_slash;
+                //cout<<"file="<<file<<endl;
+                if(file=="..")//表明返回上一级
+                {   
+                    flag=1;
+                    if(s.empty())//栈为空，不操作
+                    {
+                        //break;
+                    }
+                    else s.pop();
+                }
+                if(file==".")
+                {
+                    flag=1;
+                    //break;
+                }
+                if(flag==0) s.push(file);//表明进入下一级，压入栈
+            }
+            start_slash=end_slash;
+        }
+        string new_path;
+        //new_path+='/';
+        stack<string> convert;
+        while(!s.empty())
+        {
+            convert.push(s.top());//由于最后是正着输出，用另外一个stack调换次序
+            s.pop();
+        }
+        if(convert.empty())
+        {
+            new_path+='/';//stack为空，这时候还需要加一个/
+            return new_path;
+        }
+        while(!convert.empty())
+        {
+            string x=convert.top();
+            convert.pop();
+            new_path+='/';//将stack中的每一个元素按顺序append到字符串后面
+            new_path+=x;
+            
+        }
+        return new_path;
+
+    }
+};

@@ -1,0 +1,86 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        int i,j,k;
+       vector<vector<int> >ans;
+        int index=0;
+        sort(nums.begin(),nums.end());
+        int zeros=0;
+        
+        for(i=0;i<nums.size();i++) 
+        {
+            
+            cout<<nums[i]<<' ';
+            if(nums[i]==0) zeros++;
+        }
+        
+        if(zeros>=3)
+        {
+             vector<int>temp(3);
+            temp[1]=0;temp[0]=0;temp[2]=0;
+             ans.push_back(temp);
+             index++;
+            for(i=0;i<nums.size();i++) 
+        {
+        
+            if(nums[i]==0) nums.erase(nums.begin()+i);
+        }
+            
+        }
+        
+        for(i=0;i<nums.size();i++)
+        {
+            int l=i+1,r=nums.size()-1;
+            if(i>0&&nums[i]==nums[i-1]) continue;
+            while(l<r)
+            {      
+                    int sum=nums[l]+nums[r]+nums[i];
+                    if(sum==0) 
+                    {
+                        vector<int>temp(3);
+                        temp[0]=nums[i];
+                        temp[1]=nums[l];
+                        temp[2]=nums[r];
+                        ans.push_back(temp);
+                        index++;
+                        cout<<"index="<<index<<endl;
+                        cout<<"i="<<i<<endl<<"l="<<l<<endl<<"r="<<r<<endl;
+                    }
+
+                    while(nums[r]==nums[r-1]&&nums[r]!=0)
+                    {
+                        if(nums[r]*2+nums[i]==0) 
+                        {
+                             vector<int>temp(3);
+                            temp[0]=nums[i];
+                            temp[1]=nums[r];
+                            temp[2]=nums[r];
+                            ans.push_back(temp);
+                            index++;
+                        }
+                        r--;
+                    }
+                    while(nums[l]==nums[l+1]&&nums[l]!=0)
+                    {
+                        if(nums[l]*2+nums[i]==0) 
+                        {
+                             vector<int>temp(3);
+                            temp[0]=nums[i];
+                            temp[1]=nums[l];
+                            temp[2]=nums[l];
+                            ans.push_back(temp);
+                            index++;
+                        }
+                        l++;
+                    }
+                    if(sum>=0) r--;
+                    if(sum<=0) l++;
+            }
+        }
+        return ans;
+        
+        
+    }
+    
+};

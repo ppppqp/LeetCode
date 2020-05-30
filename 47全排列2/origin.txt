@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        
+         set<vector<int >> ans;
+        map<int,int> used;
+        vector<int>temp;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(used.find(nums[i])==used.end())
+               used[nums[i]]=1;
+               else
+               used[nums[i]]++;
+        }
+        find(nums,ans,temp,0,used);
+        vector<vector<int>> out(ans.begin(),ans.end());
+        return out;
+    }
+    int find(vector<int>& nums, set<vector<int>> &ans,vector<int>temp, int step,map<int,int> &used)
+    {
+        if(step==nums.size())
+        {
+            ans.insert(temp);
+            return 0;
+        }
+        int i;
+        for(i=0;i<nums.size();i++)
+        {
+            if(used.find(nums[i])!=used.end()&&used.find(nums[i])->second>0) 
+            {
+             temp.push_back(nums[i]);
+             used[nums[i]]--;
+             find(nums,ans,temp,step+1,used);
+             temp.pop_back();
+             used[nums[i]]++;
+            }
+        }
+        return 0;
+    }
+};

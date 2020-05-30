@@ -1,0 +1,44 @@
+
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        set<vector<int>> ans;
+        vector<int> temp;
+        sort(candidates.begin(),candidates.end());
+        for(int i=0;i<candidates.size();i++) cout<<candidates[i]<<' ';
+        int i,j,k;
+        int f[1000];//f[i]=f[i-can[j]]
+        dfs(0,target,candidates,temp,ans,-1);
+        vector<vector<int>> out(ans.begin(),ans.end());
+        return out;
+        
+    }
+    void dfs(int i,int target, vector<int>&candidates,vector<int>temp, set<vector<int>>& ans,int t)
+    {
+        if(i==target)
+        {
+            ans.insert(temp);
+            cout<<"temp=";
+            for(int l=0;l<temp.size();l++)
+            {
+                cout<<temp[l]<<endl;
+            }
+        }
+        cout<<"i="<<i<<endl;
+        cout<<"t="<<t<<endl;
+        int k;
+        for(k=t+1;k<candidates.size();k++)
+        {
+            if(candidates[k]+i<=target)
+            {
+                temp.push_back(candidates[k]);
+                dfs(i+candidates[k],target,candidates,temp,ans,k);
+                temp.pop_back();
+            }
+            
+        }
+        return;
+    }
+};
+///总结： 1. 使用set，可检查是否重复
+	2. 由于数组的元素顺序也决定了这个数组唯一性，所以要先排序

@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        //sort(candidates,candidates.size());
+        int i,j,k;
+        int f[1000];//f[i]=f[i-can[j]]
+        dfs(0,target,candidates,temp,ans,0);
+        return ans;
+        
+    }
+    void dfs(int i,int target, vector<int>&candidates,vector<int>temp, vector<vector<int>>& ans,int t)
+    {
+        if(i==target)
+        {
+            ans.push_back(temp);
+            cout<<"temp=";
+            for(int l=0;l<temp.size();l++)
+            {
+                cout<<temp[l]<<endl;
+            }
+        }
+        cout<<"i="<<i<<endl;
+        int k;
+        for(k=t;k<candidates.size();k++)
+        {
+            if(candidates[k]+i<=target)
+            {
+                temp.push_back(candidates[k]);
+                dfs(i+candidates[k],target,candidates,temp,ans,k);
+                temp.pop_back();
+            }
+            
+        }
+        return;
+    }
+};

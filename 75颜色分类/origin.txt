@@ -1,0 +1,91 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        
+        int i=0;
+        int j=nums.size()-1;
+        int num=0;
+             for(num=i;num<=j;num++)
+            {
+                if(nums[num]==0)
+                {
+                    swap(num,i,nums);
+                    i++;
+                    num--;
+                    if(i>num) num=i-1;
+                    continue;
+                }
+                 
+                if(nums[num]==2)
+                {
+                    swap(num,j,nums);
+                    j--;
+                    //if(nums[num]!=2)
+                    num--;
+                    //if(j<num) num=j+1;
+                   
+                    continue;
+                }
+                
+            }
+        /*
+        while(i<j)
+        {
+            if(nums[i]==0) 
+            {
+                i++;
+            }
+            if(nums[j]==2) 
+            {
+                j--;
+            }
+            
+            if(nums[i]==1&&nums[j]==0) 
+            {
+                swap(i,j);
+                i++;
+                continue;
+            }
+            if(nums[i]==2&&nums[j]==0) 
+            {
+                swap(i,j);
+                j--;
+                i++;
+                continue;
+            }
+            if(nums[i]==2&&nums[j]==1)
+            {
+                swap(i,j);
+                j--;
+                continue;
+            }
+            num=i;
+            while(nums[num]==1&&nums[j]==1)
+            {
+                num++;
+            }
+            if(num>=j)break;
+            if(nums[num]==0)
+            {
+                swap(i,num);
+                i++;
+            }
+            if(nums[num]==2)
+            {
+                swap(j,num);
+                j--;
+            }
+        }
+        */
+       
+        
+    }
+    void swap( int a, int b, vector<int> &nums)
+    {
+        if(a==b) return;
+        nums[a] = nums[a] ^ nums[b];
+        nums[b] = nums[a] ^ nums[b];
+        nums[a] = nums[a] ^ nums[b];
+    }
+    
+};

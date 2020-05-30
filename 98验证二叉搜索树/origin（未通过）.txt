@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(root==NULL) return true;
+        return isvalid(root,root->val,root->val,2);
+        
+    }
+    bool isvalid(TreeNode* root, long long minn, long long maxx, int sig)
+    {   if(root==NULL) return true;//[10,5,15,null,null,6,20]
+        if(root->right==NULL&&root->left==NULL) return true;
+     if(sig==1)
+     {
+         if(minn>root->val) minn=root->val;
+        // if(maxx<root->val) maxx=root->val;
+         if(root->left!=NULL&&root->left->val<=maxx) return false;//右左
+         if(root->left!=NULL&&root->left->val>=minn) return false;
+         if(root->right!=NULL&&root->right->val<=root->val) return false;//右右
+         if(root->right!=NULL&&root->right->val<=maxx) return false;
+         return isvalid(root->left,root->val,maxx,0)&&isvalid(root->right,minn,maxx,1);
+     }
+     if(sig==0)
+     {
+          //if(minn>root->val) minn=root->val;
+          if(maxx<root->val) maxx=root->val;
+          if(root->left!=NULL&&root->left->val>=minn) return false;//左左
+         if(root->left!=NULL&&root->left->val>=root->val) return false;
+         if(root->right!=NULL&&root->right->val<=maxx) return false;//左右
+         if(root->right!=NULL&&root->right->val>=minn) return false;
+         return isvalid(root->left,minn,maxx,0)&&isvalid(root->right,minn,root->val,1);
+     }
+     if(sig==2)
+     {
+         if(root->left!=NULL&&root->left->val>=root->val) return false;
+         if(root->right!=NULL&&root->right->val<=root->val) return false;
+         return isvalid(root->left,minn,maxx,0)&&isvalid(root->right,minn,maxx,1);
+     }
+     
+     return false;
+    }
+    
+};

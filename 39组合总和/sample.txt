@@ -1,0 +1,23 @@
+class Solution {
+public:
+   vector<vector<int>> combinationSum(vector<int>& candidates, int target) 
+   {
+       vector<vector<vector<int>>> dp(target + 1);
+       dp[0] = { {} };
+       for(int coin : candidates) 
+       {
+          for(int t = coin; t <= target; ++t) 
+          {
+               for(auto sol : dp[t - coin]) 
+               {
+                   sol.push_back(coin);
+                   dp[t].push_back(sol);
+                }
+            }
+        }
+        return dp[target];
+    }
+};
+
+µÚËÄÒ³
+Ideas supply

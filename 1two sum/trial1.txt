@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int i;
+        int hash[10000];
+        for(i=0;i<10000;i++)
+        {
+            hash[i]=-1;
+        }
+        static vector<int> a(2);
+        for(i=0;i<nums.size();i++)
+        {   
+            
+                if(hash[target-nums.at(i)+500]!=-1)
+                    {
+                        a[0]=hash[target-nums.at(i)+500];
+                        a[1]=i;
+                        return a;
+                    }
+                hash[nums.at(i)+500]=i;
+           
+        }
+        
+        
+    }
+};
+
+
+
+out of boundary..

@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        add(root,0,ans);
+        return ans;
+    }
+    void add(TreeNode* root, int step, vector<vector<int>> &ans)
+    {
+        if(root==NULL) return;
+        vector<int> temp;
+        if(step>=ans.size()) ans.push_back(temp);
+        ans[step].push_back(root->val);
+        add(root->left,step+1, ans);
+        add(root->right,step+1, ans);
+        return;
+    }
+};

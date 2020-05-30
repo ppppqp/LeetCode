@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int ans=0;
+        stack<int> s;
+        if(heights.size()==0) return 0;
+        heights.insert(heights.begin(),0);
+        heights.push_back(0);//两端加零，可以使得栈必然不会出现只剩下一个元素的情形，否则pop了以后就没有top了
+        //cout<<"size="<<heights.size();
+        for (int i=0;i<heights.size();i++)
+        {
+            while(!s.empty()&&heights[s.top()]>heights[i])//维护递增栈（如果出现递减的元素，说明长方形的长度必然下降，可以开始从前找max了）
+            {   
+                int temp=s.top();
+                s.pop();
+                ans=max(ans,heights[temp]*(i-s.top()-1));
+//一定要先pop，因为找的长度是pop以后的top的位置到pop的元素的位置，必须要得到栈顶下一个的元素的坐标才行
+                
+            }
+            
+            s.push(i);
+        }
+        return ans;
+
+    }
+};

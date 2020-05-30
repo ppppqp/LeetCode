@@ -1,0 +1,24 @@
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        len1=len(a)
+        len2=len(b)
+        Sum=[]
+        Carry=0
+        for i in range(-1,-max(len1,len2)-1,-1):
+            if i>=-len1:
+                p=eval(a[i])
+            else:
+                p=0
+                     
+            if i>=-len2:
+                q=eval(b[i])
+            else:
+                q=0
+
+            Sum.insert(0,(p^q)^Carry)
+            Carry=(p and q)or (p and Carry)or (q and Carry)
+            #print("i=%d, p=%d, q=%d, Sum=%d, Carry=%d" %(i,p,q,Sum[0],Carry))
+        if Carry==1:
+            Sum.insert(0,1)
+        temp=[str(i) for i in Sum]
+        return ''.join(temp)

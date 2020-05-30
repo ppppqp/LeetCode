@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        if(digits.back()!=9)
+        {
+             digits.back()++;
+            return digits;
+        }
+        else
+        {
+            int i;
+            int flag=1;
+            for(i=digits.size()-1;i>=0;i--)
+            {
+                if(digits[i]!=9) 
+                {
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag==1) 
+            {
+                vector<int> ans;
+                ans.push_back(1);
+                for(int j=0;j<digits.size();j++) ans.push_back(0);
+                return ans;
+            }
+            else
+            {
+                digits[i]++;
+                for(int j=i+1;j<digits.size();j++) digits[j]=0;
+                return digits;
+            }
+        }
+           
+        
+    }
+};

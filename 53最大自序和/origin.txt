@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        vector<int> a1(nums.size());
+        int i;
+        int sum=0;
+        if(nums.size()==1)return nums[0];
+        int ans=-100000;
+        for(i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+            a1[i]=sum;
+        }
+        for(i=0;i<nums.size();i++)
+        {   ans=max(ans,a1[i]);
+            for(int j=0;j<i;j++)
+            {
+                ans=max(ans,a1[i]-a1[j]);
+            }
+        }
+        return ans;
+        
+    }
+};

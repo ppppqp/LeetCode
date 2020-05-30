@@ -1,0 +1,54 @@
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        map<int,int> hash;
+        vector<int>dic1;
+        //int end;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(hash.find(nums[i])==hash.end()) 
+            {
+                hash[nums[i]]=1;
+                dic1.push_back(nums[i]);
+            }
+            else
+            {
+                hash[nums[i]]++;
+            }
+           
+           // cout<<hash[nums[i]];
+        }
+       
+        vector<vector<int>> ans;
+        vector<int> temp;
+        dfs(0,dic1, hash, ans, temp);
+        ans.push_back(temp);
+        return ans;
+    }
+    void dfs(int i, vector<int> dic1, map<int, int> hash, vector<vector<int>> &ans, vector<int> temp)
+    {       
+            //cout<<"i="<<i<<endl;
+            if(i==dic1.size())
+            {
+               //ans.push_back(temp);
+                return;
+            }
+        
+            
+            //while(i<nums.size()-1&&nums[i]==nums[i+1]) i++;
+            //cout<<"i="<<i<<endl;
+            //if(i>nums.size()-1) i=nums.size()-1;
+            
+            dfs(i+1,dic1,hash, ans, temp);
+            while(hash[dic1[i]]>0)
+            {
+                temp.push_back(dic1[i]);
+                ans.push_back(temp);
+                hash[dic1[i]]--;
+                dfs(i+1, dic1, hash, ans, temp);
+            }
+        return;
+    }
+    
+    
+};

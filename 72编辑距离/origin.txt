@@ -1,0 +1,75 @@
+
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int s1=word1.size();
+        int s2=word2.size();
+        int i,j;
+        int dp[s1+1][s2+1];
+         for(i=0;i<=s1;i++)
+        {
+            for(j=0;j<=s2;j++)
+            {
+                dp[i][j]=i+j;
+            }
+        }
+        for(i=1;i<=s1;i++)
+        {
+            for(j=1;j<=s2;j++)
+            {
+                if(word1[i-1]==word2[j-1])
+                {   //cout<<word1[i-1]<<' '<<word2[j-1]<<endl;
+                    dp[i][j]=min(dp[i][j],dp[i-1][j-1]);
+                   
+                }
+                
+                else
+                dp[i][j]=min(dp[i][j], dp[i-1][j-1]+1);
+                //cout<<dp[i][j]<<endl;
+                dp[i][j]=min(dp[i][j], dp[i-1][j]+1);
+                //cout<<dp[i][j]<<endl;
+                dp[i][j]=min(dp[i][j], dp[i][j-1]+1);
+                //cout<<dp[i][j]<<endl;
+            }
+        }
+        
+        return dp[s1][s2];
+        
+        
+    }
+};
+
+思路： 动态规划
+1. 一个单词word1通过三种途径靠近下一个单词word2
+（1）考虑如果word1从0~i-1位要和word2的0~j-1位相同需要k步
+则word1从0~i位与word20~j位相同需要几步？
+	分两种情况
+		1. 若word1的i位与word2的j位相同，那直接就搞定了，总共k步
+		2. 若word1的i位与word2的j位不同，那就替换第i位，k+1
+对于另外两种可变长度的变换
+
+（2）考虑如果word1从0~i位要和word2的0~j-1位相同需要k步
+则word1从0~i位与word20~j位相同需要几步？
+	k+1步，加上缺少的那个字符
+
+（3）考虑如果word1从0~i-1位要和word2的0~j位相同需要k步
+则word1从0~i-1位与word20~j位相同需要几步？
+	k+1步，删除多余的那个字符
+
+通过以上总结可以得出一下动态规划
+
+		if(word1[i-1]==word2[j-1])
+                { 
+                    dp[i][j]=min(dp[i][j],dp[i-1][j-1]);  
+                }
+                
+                else
+                dp[i][j]=min(dp[i][j], dp[i-1][j-1]+1);
+                
+                dp[i][j]=min(dp[i][j], dp[i-1][j]+1);
+                
+                dp[i][j]=min(dp[i][j], dp[i][j-1]+1);
+还缺少初始值和循环方式
+由于缺少的是最小值，初始值都填最大值
+dp[i][j]=i+j; 一开始以为如果word1有i位，word2 有j位，变换的最长路径是先把word1完全删除再加上word2.
+这有一个问题，因为可以替换字符，故min(i,j)次替换，再abs(i-j)次删减或增加也是可以的，故最长其实是max(i,j).

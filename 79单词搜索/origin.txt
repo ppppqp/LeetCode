@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        
+        int move[4][2]={{0,1},{1,0},{0,-1},{-1,0}};
+        vector<vector<bool> > visited(board.size(), vector<bool>(board[0].size(), false));
+        int step=0;
+        int x,y;
+        for(int i=0;i< board.size();i++)
+        {
+            for(int j=0;j<board[0].size();j++)
+            {
+                if(board[i][j]==word[0])
+                {   visited[i][j]=true;
+                    if(word.size()==1) return true;
+                    if(dfs(board, word, visited, move, 1, i,j)==true)
+                        return true;
+                    visited[i][j]=false;
+                }
+            }
+        }
+        
+        return false;
+    }
+    bool dfs(vector<vector<char>> board, string word,       vector<vector<bool>>visited, int move[4][2], int step, int x, int y)
+    {   //cout<<"step="<<step<<endl;
+        if(step>=word.size()) return true;
+        int i,j;
+        for(i=0;i<4;i++)
+        {
+            int x1=x+move[i][0];
+            int y1=y+move[i][1];
+            
+                if(x1>=0&&x1<board.size()&&y1>=0&&y1<board[0].size()&&visited[x1][y1]==false)
+                {  // cout<<"x="<<x1<<"y="<<y1<<endl;
+                    if(board[x1][y1]==word[step])
+                    {
+                        visited[x1][y1]=true;
+                        if(dfs(board, word, visited,move, step+1,x1,y1)==true)
+                        return true;
+                        visited[x1][y1]=false;
+                    }
+                }
+            
+        }
+        return false;
+    }
+};

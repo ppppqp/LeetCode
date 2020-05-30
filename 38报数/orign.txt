@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        
+        int i,j;
+        string s="1";
+        int start=0;
+        for(j=1;j<n;j++)
+        {start=0;
+         cout<<"SS="<<s<<endl;
+            while(start<s.size())
+            {
+                
+            int count=1;
+            int base=s[start];
+            int i=start+1;
+            while(i<s.size()&&s[i]==s[i-1])
+            {
+                s.erase(s.begin()+i);
+                count++;
+                
+            }
+                cout<<"count="<<count<<endl;
+            s.erase(s.begin()+start);
+              //cout<<"s="<<s<<endl;
+            s.insert(s.begin()+start,count+'0');
+              //cout<<"s="<<s<<endl;
+            s.insert(s.begin()+start+1,base);
+              //cout<<"s="<<s<<endl;
+            start+=2;
+             //cout<<"s="<<s<<endl;
+            }
+        }
+        return s;
+    }
+};

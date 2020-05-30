@@ -1,0 +1,106 @@
+class Solution {
+public:
+    string decodeString(string s) {
+
+        string ans;
+        int i=0;
+        int num = 0;
+        stack <char> a;
+        stack <int> n;
+        
+        while( i < s.size())
+        {
+            //cout<<"i="<<i<<' ';
+            //cout<<"si="<<s[i]<<endl;
+            if(s[i] <= '9' && s[i] >= '0')
+            {
+                while( s[i] != '['){
+                    num *=10;
+                    num += s[i] - '0';
+                    i++;
+                }
+                //read the number (possibly multiple digits)
+                n.push(num);//push to the stack of num
+                num=0;
+                i--;
+            }
+            if(s[i] == '[' || (s[i] >= 'a' && s[i] <= 'z' ||(s[i] >= 'A' && s[i] <= 'Z'))){
+                a.push(s[i]);// character, push
+            }
+            if(s[i] == ']')
+            {
+                
+                string temp;
+                string timed_temp;
+                while(a.top()!='[')
+                {
+                    temp.push_back(a.top());//pop 'a','b'...
+                    a.pop();
+                }
+                a.pop();//pop '['
+                int times=n.top();
+                n.pop();
+                //cout<<"times="<<times<<endl;
+                for(int j = 0; j < times; j++){
+                    timed_temp += temp;
+                }// get the timed temp, namely 'ab'-->'ababab'
+                //cout<<"timed temp="<<timed_temp;
+                for( int j = 0; j < timed_temp.size(); j++){
+                    a.push(timed_temp[timed_temp.size()-j-1]);//push to the stack one by one, 'a' 'b' 'a' 'b' 'a' 'b' but in reversed order
+                }
+            }
+            i++;
+            //Display_char(a);
+            //Display_int(n);
+        }
+        //Display_char(a);
+         while(!a.empty())
+        {
+           ans.insert(ans.begin(),a.top());// print to the answer string.
+            a.pop();
+        }
+        
+        return ans;
+    }
+    void Display_char(stack<char> a){
+        cout<<endl;
+        cout<<"stack char is";
+        while(!a.empty())
+        {
+            cout<<a.top()<<' ';
+            a.pop();
+        }
+        cout<<endl;
+    }
+    void Display_int(stack<int> a){
+        cout<<endl;
+        cout<<"stack int is";
+        while(!a.empty())
+        {
+            cout<<a.top()<<' ';
+            a.pop();
+        }
+        cout<<endl;
+    }
+    /*
+    string decoder(string & s, string & ans){
+        int i=0;
+        string temp;
+        while(s[i]>='a' && s[i]<='z'){
+            temp += s[i]
+            i++;
+        }
+        int num=0;
+        if(s[i] <= '9' && s[i] >= '0'){
+            while( s[i] != '['){
+                        num *=10;
+                        num += s[i] - '0';
+                        i++;
+            }
+        }
+        decoder()
+        
+            
+    }
+    */
+};

@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        
+        vector<string> ans;
+        string combo;
+        dfs(0,0,n,combo,ans);
+        return ans;
+    }
+    
+    void dfs(int left,int right, int n,string combo, vector<string> &ans)
+    {
+        int i;
+        if(left<right||left>n||right>n) return;
+        if(left==right&&left==n)
+        {
+            ans.push_back(combo);
+            return;
+        }
+        combo.push_back('(');
+        dfs(left+1,right,n,combo,ans);
+        combo.pop_back();
+        combo.push_back(')');
+        dfs(left,right+1,n,combo,ans);
+        return;
+    }
+};

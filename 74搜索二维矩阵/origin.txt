@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int i;
+        int a=0,b=matrix.size(),mid;
+        if(matrix.size()==0) return false;
+          //  return false;
+        while(a<b-1)
+        {cout<<"a="<<a<<"b="<<b<<endl;
+            mid=(a+b)/2;
+            if(matrix[mid].size()==0) return false;
+            if(matrix[mid].size()>0&&matrix[mid][0]==target) return true;
+            if(matrix[mid].size()>0&&matrix[mid][0]>target) b=mid;
+            else a=mid;
+        }
+        i=a; 
+        cout<<"i="<<i<<endl;
+        if(matrix[i].size()==0) return false;
+        a=0;b=matrix[i].size()-1;
+       
+        while(a<=b)
+        {cout<<"a="<<a<<"b="<<b<<endl;
+            mid=(a+b)/2;
+            if(matrix[i][mid]==target) return true;
+            if(matrix[i][mid]>target) b=mid-1;
+            else a=mid+1;
+        }
+        return false;
+    }
+};
+
+//两次二分查找

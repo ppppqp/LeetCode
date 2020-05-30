@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        
+        map<char,int> hash;
+        int i=-1,j=0;
+        int ans=0,sum=0;
+        for(j=0;j<s.size();j++)
+        {
+            if(hash.find(s[j])!=hash.end())
+            {
+                i=max(i,hash.find(s[j])->second);
+            }
+            ans=max(ans,j-i);
+            hash[s[j]]=j;
+        }
+        return ans;
+    }
+};
+
+
+
+///i一定要赋值成-1！！！因为只有一个字符时，答案是1！！！

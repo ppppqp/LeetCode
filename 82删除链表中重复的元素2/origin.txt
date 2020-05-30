@@ -1,0 +1,70 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        
+        int next_val;
+        //ListNode* p;
+        ListNode* Head=(ListNode *)malloc(sizeof(struct ListNode));
+        Head->val=-1000000000;
+        Head->next=head;
+        ListNode* p=Head;
+        ListNode* fore=Head;
+        //cout<<"p="<<p->val<<endl;
+        if(head==NULL||head->next==NULL) return head;
+        int count=0;
+        while(p->next->next!=NULL)
+        {   
+            if(p->val!=p->next->val&&p->next->val!=p->next->next->val)
+                
+            {
+                fore->next=p->next;
+                fore=fore->next;
+            }
+            p=p->next;
+        }
+        if(p->next->val!=p->val)
+        {
+            fore->next=p->next;
+        }
+        else
+        {
+            fore->next=NULL;
+        }
+        return Head->next;
+    }
+        
+            /*cout<<"fore="<<fore->val<<endl;
+            while(p->val==p->next->val)
+            {
+                cout<<"p="<<p->val<<endl;
+                p=p->next;
+                if(p->next==NULL) return Head->next;
+            
+            }
+            if(p->next->val!=p->next->next->val)
+            {   cout<<"yes"<<endl;
+                fore->next=p->next;
+                fore=fore->next;
+                p=fore->next;
+            }
+            //cout<<p->val<<endl;
+            //fore=fore->next;
+            
+        }
+        return Head->next;
+       
+        free(Head);
+    }
+    */
+   
+};
+
+

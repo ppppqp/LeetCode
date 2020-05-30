@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        
+        vector<vector<int >> ans;
+        map<int,int> used;
+        vector<int>temp;
+        find(nums,ans,temp,0,used);
+        return ans;
+        
+    }
+    int find(vector<int>& nums, vector<vector<int>> &ans,vector<int>temp, int step,map<int,int> &used)
+    {
+        if(step==nums.size())
+        {
+            ans.push_back(temp);
+            return 0;
+        }
+        int i;
+        for(i=0;i<nums.size();i++)
+        {
+            if(used.find(nums[i])==used.end()) 
+            {
+             temp.push_back(nums[i]);
+             used[nums[i]]=1;
+             find(nums,ans,temp,step+1,used);
+             temp.pop_back();
+             used.erase(nums[i]);
+            }
+        }
+        return 0;
+    }
+};

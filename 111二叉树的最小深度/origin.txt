@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(root==NULL) return 0;
+        //if(root->left==NULL) return helper2(root,0);
+        //if(root->right==NULL) return helper3(root,0);
+        return helper(root,1);
+    }
+    int helper(TreeNode *root, int depth)
+    {
+       if(root->left==NULL&&root->right==NULL) return depth;
+        int l=1000000,r=1000000;
+       if(root->left!=NULL) l= helper(root->left,depth+1);
+       if(root->right!=NULL) r= helper(root->right,depth+1);
+        return min(l,r); 
+    }
+    /*
+    int helper2(TreeNode *root, int depth)
+    {
+        if(root==NULL) return depth;
+       int r= helper(root->right,depth+1);
+        return r; 
+    }
+    int helper3(TreeNode *root, int depth)
+    {
+        if(root==NULL) return depth;
+       int l= helper(root->left,depth+1);
+        return l; 
+    }
+    */
+};

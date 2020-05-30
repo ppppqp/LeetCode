@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+        int i=0,j=height.size()-1;
+        int maxn=0;
+        while(i<j)
+        {
+     
+            if(height[i]<height[j])
+            {
+                maxn=max(maxn,height[i]*(j-i));
+                i++;
+            }
+            else
+            {
+                maxn=max(maxn,height[j]*(j-i));
+                j--;
+            }
+        }
+        return maxn;
+        
+    }
+};
+
+这种方法背后的思路在于，两线段之间形成的区域总是会受到其中较短那条长度的限制。此外，两线段距离越远，得到的面积就越大。
+我们在由线段长度构成的数组中使用两个指针，一个放在开始，一个置于末尾。 此外，我们会使用变量 
+maxareamaxarea
+maxarea 来持续存储到目前为止所获得的最大面积。 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 
+maxareamaxarea
+maxarea，并将指向较短线段的指针向较长线段那端移动一步。
+
+
+双指针法：
+已知两个指针指向两端，现在让两个指针不断靠拢，则可知水桶的底在不断减少，那么为了得到有可能更高的体积，需要使得短的那一个边长，即移动短端的指针
