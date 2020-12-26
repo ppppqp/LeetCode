@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>85&period; Maximal Rectangle</title>
+        <style>
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="85-maximal-rectangle">85. Maximal Rectangle</h1>
+<blockquote>
+<p>Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.</p>
+</blockquote>
+<p><a href="https://leetcode-cn.com/problems/remove-duplicate-letters">Problem Description</a></p>
+<blockquote>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/14/maximal.jpg" alt="图片alt" title="图片title"></p>
+</blockquote>
+<blockquote>
+<p>Input: matrix = [[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],[&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]]<br>
+Output: 6<br>
+Explanation: The maximal rectangle is shown in the above picture.</p>
+</blockquote>
+<h2 id="1-basics">1. Basics</h2>
+<p>转化为<a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/">84.Largest Rectangle in Histogram</a>。
+这个问题是求在一个柱状图中最大的矩形。</p>
+<h2 id="2-idea">2. Idea</h2>
+<p>通过对每段遍历</p>
+<h2 id="3-implementation">3. Implementation</h2>
+<p>通过维护一个单调栈。 如果一个栈是单调的，则只需要在加入元素的时候判断是否和顶部元素相比会破坏单调性。</p>
+<ul>
+<li>若破坏，则将顶部元素pop，继续判断</li>
+<li>若不破坏，则push该元素，退出循环</li>
+<li>若栈为空，退出循环</li>
+</ul>
+<h2 id="4-constraints">4. Constraints</h2>
+<ul>
+<li>因为所有元素<strong>只能出现一次</strong>，需要在push的时候判断是否已经在栈里面了，如果已经在里面，不用管他了</li>
+<li>因为所有元素<strong>必须出现一次</strong>，需要在pop的时候判断剩下字符串中还有没有这个元素，如果没有了，则不能pop</li>
+</ul>
+<hr>
+<h2 id="1-basics-1">1. Basics</h2>
+<p>Think about how to decrease the lexicographical order of a string by deleting an element.</p>
+<ul>
+<li>solution
+find the <strong>least</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> such that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo>&gt;</mo><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">s[i] &gt; s[i+1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></li>
+</ul>
+<h2 id="2-idea-1">2. Idea</h2>
+<p>By iteratively running throught the strings and deleting those chars, decrement the lexicographical order till we can't.</p>
+<h2 id="3-implementation-1">3. Implementation</h2>
+<p>We maintain a Monotone Priority Stack. If a stack is montone prioritized, we only need to maintain it by checking whether the element to add will conflict with the stack top.</p>
+<ul>
+<li>if it will, we pop the top and continue</li>
+<li>if it won't , we push the element and break</li>
+<li>if the stack is empty, break</li>
+</ul>
+<h2 id="4-constraints-1">4. Constraints</h2>
+<ul>
+<li>Because all elements can <strong>occur only once</strong>, we need to check if it has been in stack when we try to push it.</li>
+<li>Because all elements <strong>have to occur once</strong>, we need to check whether the element will occur in the rest of the string. If it won't, we can't pop it.</li>
+</ul>
+<hr>
+<pre><code class="language-c++"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {</span>
+ <span class="hljs-keyword">public</span>:
+  <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">removeDuplicateLetters</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>{
+    <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">char</span>&gt; Stack;
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">occur</span><span class="hljs-params">(<span class="hljs-number">26</span>, <span class="hljs-number">0</span>)</span></span>;
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">times</span><span class="hljs-params">(<span class="hljs-number">26</span>, <span class="hljs-number">0</span>)</span></span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.size(); i++) {
+      times[s[i] - <span class="hljs-string">&#x27;a&#x27;</span>]++;
+    }
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.size(); i++) {
+      <span class="hljs-keyword">int</span> c = s[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
+      <span class="hljs-keyword">if</span> (occur[c] == <span class="hljs-number">0</span>) {  <span class="hljs-comment">// push</span>
+        <span class="hljs-comment">// cout &lt;&lt; Stack.empty() &lt;&lt; endl;</span>
+        <span class="hljs-keyword">while</span> ((!Stack.empty()) &amp;&amp; (s[i] &lt; Stack.top()) &amp;&amp;
+               times[Stack.top() - <span class="hljs-string">&#x27;a&#x27;</span>] &gt; <span class="hljs-number">0</span>) {
+          <span class="hljs-comment">// cout &lt;&lt;&quot;here&quot; &lt;&lt; endl;</span>
+          occur[Stack.top() - <span class="hljs-string">&#x27;a&#x27;</span>] = <span class="hljs-number">0</span>;
+          Stack.pop();
+        }
+        Stack.push(s[i]);
+        occur[c] = <span class="hljs-number">1</span>;
+      }
+      times[c]--;
+    }
+
+    <span class="hljs-built_in">string</span> ans;
+    <span class="hljs-keyword">while</span> (!Stack.empty()) {
+      ans.insert(ans.begin(), Stack.top());
+      Stack.pop();
+    }
+    <span class="hljs-keyword">return</span> ans;
+  }
+};
+</div></code></pre>
+
+    </body>
+    </html>
